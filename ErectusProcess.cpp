@@ -205,7 +205,7 @@ int GetProcessCount()
 	int ProcessCount = 1;
 	while (Process32Next(hSnapshot, &lppe))
 	{
-		if (!strcmp(lppe.szExeFile, "Fallout76.exe"))
+		if (!strcmp(lppe.szExeFile, "Project76.exe"))
 		{
 			ProcessCount++;
 		}
@@ -237,11 +237,11 @@ bool UpdateProcessList()
 	int CurrentProcess = 0;
 	while (Process32Next(hSnapshot, &lppe))
 	{
-		if (!strcmp(lppe.szExeFile, "Fallout76.exe"))
+		if (!strcmp(lppe.szExeFile, "Project76.exe"))
 		{
 			CurrentProcess++;
-			ProcessList[CurrentProcess] = new char[sizeof("Fallout76.exe - 4294967295")];
-			sprintf_s(ProcessList[CurrentProcess], sizeof("Fallout76.exe - 4294967295"), "Fallout76.exe - %lu", lppe.th32ProcessID);
+			ProcessList[CurrentProcess] = new char[sizeof("Project76.exe - 4294967295")];
+			sprintf_s(ProcessList[CurrentProcess], sizeof("Project76.exe - 4294967295"), "Project76.exe - %lu", lppe.th32ProcessID);
 			ProcessIdList[CurrentProcess] = lppe.th32ProcessID;
 		}
 	}
@@ -257,10 +257,10 @@ BOOL HwndEnumFunc(HWND hwnd, LPARAM lParam)
 
 	if (lpdwProcessId == lParam)
 	{
-		char Buffer[sizeof("Fallout76")] = { '\0' };
+		char Buffer[sizeof("Project76")] = { '\0' };
 		if (GetClassName(hwnd, Buffer, sizeof(Buffer)))
 		{
-			if (!strcmp(Buffer, "Fallout76"))
+			if (!strcmp(Buffer, "Project76"))
 			{
 				Hwnd = hwnd;
 				return FALSE;
@@ -336,7 +336,7 @@ bool ProcessValid(DWORD ProcessId)
 		return false;
 	}
 
-	Exe = GetModuleBaseAddress(Pid, "Fallout76.exe");
+	Exe = GetModuleBaseAddress(Pid, "Project76.exe");
 	if (!Exe)
 	{
 		SetProcessError(2, "Process State: Base Address invalid", sizeof("Process State: Base Address invalid"));
